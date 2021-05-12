@@ -10,14 +10,8 @@ import { Component } from "@angular/core";
     </div>
     <br />
     <div class="app">
-      <button (click)="handleClick()">Change Name</button>
-      <input
-        type="text"
-        [ngModel]="name"
-        (ngModelChange)="handleChange($event)"
-      />
-      <br />
-      <input type="text" [(ngModel)]="name" />
+      <button (click)="handleClick(username.value)">Get Value</button>
+      <input type="text" #username />
       <div>{{ name }}</div>
     </div>
   `,
@@ -33,31 +27,16 @@ export class AppComponent {
   constructor() {
     this.title = "Ultimate Angular";
   }
-  /**
-   * this function will handle input event
-   * @param event content of event raised from input data
-   */
-  handleChange(value: string) {
-    console.log(value);
-    this.name = value;
-  }
+
   /**
    * This function handle click event on button
    */
-  handleClick() {
-    this.name = "Motto";
+  handleClick(value: string) {
+    console.log(value);
   }
 }
 
 /***
- * Two way data Binding
- * 
- * This technically one way databinding
- *    <input
-        type="text"
-        [ngModel]="name"
-        (ngModelChange)="handleChange($event)"
-      />
-* This is two way data binding
-* <input type="text" [(ngModel)]="name" />
+ * Template Refs
+ *
  */
