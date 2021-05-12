@@ -5,14 +5,11 @@ import { Component } from "@angular/core";
   styleUrls: ["app.component.scss"],
   template: `
     <div class="app">
-      {{ title }}
+      <h1>{{ title }}</h1>
       <img [src]="logo" />
-    </div>
-    <br />
-    <div class="app">
+      <br />
       <button (click)="handleClick(username.value)">Get Value</button>
       <input type="text" #username />
-      <div>{{ name }}</div>
     </div>
   `,
 })
@@ -23,20 +20,11 @@ export class AppComponent {
   numberOne: number = 1;
   numberTwo: number = 2;
   logo: string = "img/logo.svg";
-  name: string = "Todd";
+  name: string = "";
   constructor() {
     this.title = "Ultimate Angular";
   }
-
-  /**
-   * This function handle click event on button
-   */
   handleClick(value: string) {
     console.log(value);
   }
 }
-
-/***
- * Template Refs
- *
- */
