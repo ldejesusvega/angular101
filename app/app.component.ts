@@ -5,15 +5,21 @@ import { Component } from "@angular/core";
   styleUrls: ["app.component.scss"],
   template: `
     <div class="app">
-      <h1 [innerHTML]="title"></h1>
-      <h1>{{ title }}</h1>
+      {{ title }}
       <img [src]="logo" />
-      <br />
-      <input type="text" value="Todd" />
-      <input type="text" value="{{ title }}" />
-      <input type="text" [value]="name" />
     </div>
-  `, // example of sugar notation <h1 [innerHTML]="title"></h1>
+    <br />
+    <div class="app">
+      <button (click)="handleClick()">Change Name</button>
+      <input
+        type="text"
+        [value]="name"
+        (input)="handleInput($event)"
+        (blur)="handleBlur($event)"
+      />
+      <div>{{ name }}</div>
+    </div>
+  `,
 })
 // Property binding
 export class AppComponent {
@@ -26,18 +32,33 @@ export class AppComponent {
   constructor() {
     this.title = "Ultimate Angular";
   }
+  /**
+   * This function updates name property with value passed in event.terget.value
+   * @param event content of event raised on blur
+   */
+  handleBlur(event: any) {
+    //console.log(event);
+    console.log(event.target.value);
+    this.name = event.target.value;
+  }
+  /**
+   * this function will handle input event
+   * @param event content of event raised from input data
+   */
+  handleInput(event: any) {
+    console.log(event.target.value);
+    this.name = event.target.value;
+  }
+  /**
+   * This function handle click event on button
+   */
+  handleClick() {
+    this.name = "Motto";
+  }
 }
 
 /***
- *  <input type="text" value="Todd" />
-    <input type="text" value="{{ title }}" />
- * This two lines shows input with value Todd,
- * but in second line is binding with {{ title }}
- * To do this dynamic binding should do it like this 
- * 
- * Create the property the bind on input with new property 
- *  name: string = "Todd";
- *  <input type="text" [value]="name" />
- * This is one way databinding 
- * 
+ * Event Binding
+ * Example of event raised on blur, input or click on button
+ *
  */
