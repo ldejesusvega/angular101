@@ -1,5 +1,13 @@
 import { Component } from "@angular/core";
 
+@Component({
+  selector: "app-root",
+  template: `
+    <div>
+      {{ title }}
+    </div>
+  `, // inline template definition
+})
 export class AppComponent {
   /**
  * This Component cas be contruct like this ....
