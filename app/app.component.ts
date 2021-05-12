@@ -13,10 +13,11 @@ import { Component } from "@angular/core";
       <button (click)="handleClick()">Change Name</button>
       <input
         type="text"
-        [value]="name"
-        (input)="handleInput($event)"
-        (blur)="handleBlur($event)"
+        [ngModel]="name"
+        (ngModelChange)="handleChange($event)"
       />
+      <br />
+      <input type="text" [(ngModel)]="name" />
       <div>{{ name }}</div>
     </div>
   `,
@@ -33,21 +34,12 @@ export class AppComponent {
     this.title = "Ultimate Angular";
   }
   /**
-   * This function updates name property with value passed in event.terget.value
-   * @param event content of event raised on blur
-   */
-  handleBlur(event: any) {
-    //console.log(event);
-    console.log(event.target.value);
-    this.name = event.target.value;
-  }
-  /**
    * this function will handle input event
    * @param event content of event raised from input data
    */
-  handleInput(event: any) {
-    console.log(event.target.value);
-    this.name = event.target.value;
+  handleChange(value: string) {
+    console.log(value);
+    this.name = value;
   }
   /**
    * This function handle click event on button
@@ -58,7 +50,14 @@ export class AppComponent {
 }
 
 /***
- * Event Binding
- * Example of event raised on blur, input or click on button
- *
+ * Two way data Binding
+ * 
+ * This technically one way databinding
+ *    <input
+        type="text"
+        [ngModel]="name"
+        (ngModelChange)="handleChange($event)"
+      />
+* This is two way data binding
+* <input type="text" [(ngModel)]="name" />
  */
