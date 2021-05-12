@@ -3,8 +3,12 @@ import { Component } from "@angular/core";
 @Component({
   selector: "app-root",
   styleUrls: ["app.component.scss"],
-  templateUrl: "./app.component.html", // external template definition
-})
+  template: `
+    <div class="app">
+      {{ title }}
+    </div>
+  `,
+}) // templateUrl: "./app.component.html", // external template definition
 export class AppComponent {
   /**
  * This Component cas be contruct like this ....
