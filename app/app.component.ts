@@ -1,20 +1,25 @@
 import { Component } from "@angular/core";
 import { Timestamp } from "rxjs";
 
+/***
+ * Se crea esta nueva interfaz para definir el objeto Child
+ */
+interface Child {
+  name: string;
+  age: number;
+}
+/**
+ * El objeto Passenger implementa Child en ...
+ * children: Child[] | null;
+ * teniendo la opcion de ser un objeto nulo
+ */
 interface Passenger {
   id: number;
   fullname: string;
   checkedIn: boolean;
   checkInDate?: number;
+  children: Child[] | null;
 }
-/***
- *   checkInDate: number | null;
- * This define checkInDate as number that can be null
- *
- * checkInDate?: number ;
- * Using this prevent error if the api si not returning this property
- *
- */
 
 @Component({
   selector: "app-root",
@@ -38,16 +43,21 @@ interface Passenger {
                 : "Not Checked Id"
             }}
           </div>
+          <div class="children">
+            Children:{{ passenger.children?.lenght || 0 }}
+          </div>
         </li>
       </ul>
     </div>
   `,
 })
 /**
- * <!--build in functions json devuelve el objeto en formato json -->
- * <!-- build in functions uppercase devuelve la cadena en mayusculas -->
+ * Se agregar el div para children y mostrar la informacion de children
+ * Children:{{ passenger.children?.lenght || 0 }}
+ * Se agrega ? para permitir la navegacion segura al examinar un objeto que puede ser nulo.
+ * de otra forma cuando no haya elementos en child angular devolveria error
+ * || 0 esto se imprime cuando children es nulo
  */
-
 // Property binding
 export class AppComponent {
   title: string;
@@ -66,36 +76,51 @@ export class AppComponent {
       fullname: "Stephen",
       checkedIn: true,
       checkInDate: 1620723600000,
+      children: [
+        { name: "Ted", age: 12 },
+        { name: "Chloe", age: 8 },
+      ],
     },
     {
       id: 2,
       fullname: "Rose",
       checkedIn: true,
       checkInDate: 1620727200000,
+      children: null,
     },
     {
       id: 3,
       fullname: "James",
       checkedIn: false,
       checkInDate: null,
+      children: [{ name: "Jessica", age: 13 }],
     },
     {
       id: 4,
       fullname: "Thelma",
       checkedIn: true,
       checkInDate: 1620734400000,
+      children: [
+        { name: "Tina", age: 5 },
+        { name: "Jack", age: 2 },
+      ],
     },
     {
       id: 5,
       fullname: "Louis",
       checkedIn: false,
       checkInDate: null,
+      children: null,
     },
     {
       id: 6,
       fullname: "Enrique",
       checkedIn: true,
       checkInDate: 1620648000000,
+      children: [
+        { name: "Kathleen", age: 20 },
+        { name: "Joe", age: 18 },
+      ],
     },
   ];
 }
