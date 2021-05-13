@@ -1,30 +1,32 @@
 import { Component } from "@angular/core";
 
+interface Passenger {
+  id: number;
+  fullname: string;
+  checkedIn: boolean;
+}
 @Component({
   selector: "app-root",
   styleUrls: ["app.component.scss"],
   template: `
     <div class="app">
-      <h1>{{ title }}</h1>
-      <img [src]="logo" />
-      <br />
-      <input
-        type="text"
-        [value]="name"
-        (input)="handleChange($event.target.value)"
-      />
-      <br />
-
-      <template [ngIf]="name.length > 3">
-        <div>searching from template... {{ name }}</div>
-      </template>
-
-      <!-- Angular Structural Directive -->
-      <div *ngIf="name.length > 2">searching for... {{ name }}</div>
-      <div *ngIf="name.length">searching nolenght {{ name }}</div>
+      <h3>Airline Passenger</h3>
+      <h4>Template definition</h4>
+      <ul>
+        <template ngFor let-passenger let-i="index" [ngForOf]="passengers">
+          <li>{{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}</li>
+        </template>
+      </ul>
+      <h4>Sugar Syntax</h4>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index">
+          {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}
+        </li>
+      </ul>
     </div>
   `,
 })
+
 // Property binding
 export class AppComponent {
   title: string;
@@ -36,8 +38,37 @@ export class AppComponent {
   constructor() {
     this.title = "Ultimate Angular";
   }
-  handleChange(value: string) {
-    console.log(value);
-    this.name = value;
-  }
+
+  passengers: Passenger[] = [
+    {
+      id: 1,
+      fullname: "Stephen",
+      checkedIn: true,
+    },
+    {
+      id: 2,
+      fullname: "Rose",
+      checkedIn: false,
+    },
+    {
+      id: 3,
+      fullname: "James",
+      checkedIn: false,
+    },
+    {
+      id: 4,
+      fullname: "Thelma",
+      checkedIn: true,
+    },
+    {
+      id: 5,
+      fullname: "Louis",
+      checkedIn: false,
+    },
+    {
+      id: 6,
+      fullname: "Enrique",
+      checkedIn: true,
+    },
+  ];
 }
