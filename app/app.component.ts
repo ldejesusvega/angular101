@@ -8,8 +8,20 @@ import { Component } from "@angular/core";
       <h1>{{ title }}</h1>
       <img [src]="logo" />
       <br />
-      <button (click)="handleClick(username.value)">Get Value</button>
-      <input type="text" #username />
+      <input
+        type="text"
+        [value]="name"
+        (input)="handleChange($event.target.value)"
+      />
+      <br />
+
+      <template [ngIf]="name.length > 3">
+        <div>searching from template... {{ name }}</div>
+      </template>
+
+      <!-- Angular Structural Directive -->
+      <div *ngIf="name.length > 2">searching for... {{ name }}</div>
+      <div *ngIf="name.length">searching nolenght {{ name }}</div>
     </div>
   `,
 })
@@ -24,7 +36,8 @@ export class AppComponent {
   constructor() {
     this.title = "Ultimate Angular";
   }
-  handleClick(value: string) {
+  handleChange(value: string) {
     console.log(value);
+    this.name = value;
   }
 }
