@@ -17,9 +17,29 @@ interface Passenger {
           <li>{{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}</li>
         </template>
       </ul>
-      <h4>Sugar Syntax</h4>
+      <br />
+
+      <h4>use of class</h4>
+      <h5>this works when_ only require_ add one class</h5>
       <ul>
         <li *ngFor="let passenger of passengers; let i = index">
+          <span class="status" [class.checked-in]="passenger.checkedIn"></span>
+          {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}
+        </li>
+      </ul>
+
+      <br />
+      <h4>use of ngclass</h4>
+      <h5>this works when_ only require_ add multiple classes</h5>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index">
+          <span
+            class="status"
+            [ngClass]="{
+              'checked-in': passenger.checkedIn,
+              'checked-out': !passenger.checkedIn
+            }"
+          ></span>
           {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}
         </li>
       </ul>
