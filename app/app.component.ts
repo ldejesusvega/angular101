@@ -43,6 +43,36 @@ interface Passenger {
           {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}
         </li>
       </ul>
+
+      <br />
+      <h4>use of style</h4>
+      <h5>modify style definition</h5>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index">
+          <span
+            class="status"
+            [style.backgroundColor]="
+              passenger.checkedIn ? '#2ecc71' : '#c0392b'
+            "
+          ></span>
+          {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}
+        </li>
+      </ul>
+
+      <br />
+      <h4>use of ngstyle</h4>
+      <h5>modify style definition</h5>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index">
+          <span
+            class="status"
+            [ngStyle]="{
+              backgroundColor: passenger.checkedIn ? '#2ecc71' : '#c0392b'
+            }"
+          ></span>
+          {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }}
+        </li>
+      </ul>
     </div>
   `,
 })
