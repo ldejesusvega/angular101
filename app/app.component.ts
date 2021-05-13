@@ -1,18 +1,10 @@
 import { Component } from "@angular/core";
 import { Timestamp } from "rxjs";
 
-/***
- * Se crea esta nueva interfaz para definir el objeto Child
- */
 interface Child {
   name: string;
   age: number;
 }
-/**
- * El objeto Passenger implementa Child en ...
- * children: Child[] | null;
- * teniendo la opcion de ser un objeto nulo
- */
 interface Passenger {
   id: number;
   fullname: string;
@@ -27,8 +19,6 @@ interface Passenger {
   template: `
     <div class="app">
       <h3>Airline Passenger</h3>
-      <h4>Pipes, data_ transformation</h4>
-      <h5>pipes procesa datos para ser presentados</h5>
       <ul>
         <li *ngFor="let passenger of passengers; let i = index">
           <span class="status" [class.checked-in]="passenger.checkedIn"></span>
@@ -51,13 +41,7 @@ interface Passenger {
     </div>
   `,
 })
-/**
- * Se agregar el div para children y mostrar la informacion de children
- * Children:{{ passenger.children?.lenght || 0 }}
- * Se agrega ? para permitir la navegacion segura al examinar un objeto que puede ser nulo.
- * de otra forma cuando no haya elementos en child angular devolveria error
- * || 0 esto se imprime cuando children es nulo
- */
+
 // Property binding
 export class AppComponent {
   title: string;
