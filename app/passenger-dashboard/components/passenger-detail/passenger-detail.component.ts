@@ -1,7 +1,14 @@
 /***
  *  Output, EventEmitter are imported to implement events that notify parent components
  */
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnChanges,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 import { Passenger } from "../../modules/passenger.interface";
 @Component({
   selector: "passenger-detail",
@@ -42,7 +49,7 @@ import { Passenger } from "../../modules/passenger.interface";
     </div>
   `,
 })
-export class PassengerDetailComponent {
+export class PassengerDetailComponent implements OnChanges, OnInit {
   @Input()
   detail: Passenger;
   editing: boolean = false;
@@ -58,6 +65,17 @@ export class PassengerDetailComponent {
   edit: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
+  ngOnChanges(changes) {
+    console.log("onChanges");
+    if (changes.detail) {
+      this.detail = Object.assign({}, changes.detail.currentValue);
+    }
+  }
+
+  ngOnInit() {
+    console.log("onInit");
+  }
+
   /**
    * onNameChange capture changes on input
    */
