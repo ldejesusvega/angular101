@@ -32,7 +32,11 @@ export class PassengerDashboardComponent implements OnInit {
 
   ngOnInit() {
     // this is a syncronous call
-    this.passengers = this.passengerService.getPassengers();
+    // this.passengers = this.passengerService.getPassengers();
+    this.passengerService.getPassengers().subscribe((data: Passenger[]) => {
+      console.log("Data : ", data);
+      this.passengers = data;
+    });
   }
 
   /**
