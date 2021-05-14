@@ -88,14 +88,33 @@ export class PassengerDashboardComponent implements OnInit {
   handleRemove(event) {
     console.log(" remove event in parent component");
     console.log(event);
+    /***
+     * Implements logic to remove one passenger from list
+     * usign filter to remove passenger
+     */
+    this.passengers = this.passengers.filter((passenger: Passenger) => {
+      return passenger.id !== event.id;
+    });
   }
 
   /**
    * handleEdit catches edit event
    * @param event event contains data from raised event
    */
-  handleEdit(event) {
+  handleEdit(event: Passenger) {
     console.log(" edit event in parent component");
     console.log(event);
+    /**
+     * Implements logic to edit one passenger from pasengers list
+     * using Object.assing, this function takes passenger and merges
+     * with the event:passenger object, taking the most recent values
+     */
+    this.passengers = this.passengers.map((passenger: Passenger) => {
+      if (passenger.id === event.id) {
+        passenger = Object.assign({}, passenger, event);
+      }
+      return passenger;
+    });
+    console.log(this.passengers);
   }
 }
