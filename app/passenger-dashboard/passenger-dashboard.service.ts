@@ -1,66 +1,23 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { Http, Response, Headers, RequestOptions } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
 import { Passenger } from "./modules/passenger.interface";
+
+const PASSENGER_API: string = "/api/passengers";
 
 // Add this Injectable, so we can inject http services in the contructor
 @Injectable()
 export class PassengerDashboardService {
-  constructor(private http: Http) {
-    console.log(http);
-  }
-  getPassengers(): Passenger[] {
-    return [
-      {
-        id: 1,
-        fullname: "Stephen",
-        checkedIn: true,
-        checkInDate: 1620723600000,
-        children: [
-          { name: "Ted", age: 12 },
-          { name: "Chloe", age: 8 },
-        ],
-      },
-      {
-        id: 2,
-        fullname: "Rose",
-        checkedIn: true,
-        checkInDate: 1620727200000,
-        children: null,
-      },
-      {
-        id: 3,
-        fullname: "James",
-        checkedIn: false,
-        checkInDate: null,
-        children: [{ name: "Jessica", age: 13 }],
-      },
-      {
-        id: 4,
-        fullname: "Thelma",
-        checkedIn: true,
-        checkInDate: 1620734400000,
-        children: [
-          { name: "Tina", age: 5 },
-          { name: "Jack", age: 2 },
-        ],
-      },
-      {
-        id: 5,
-        fullname: "Louis",
-        checkedIn: false,
-        checkInDate: null,
-        children: null,
-      },
-      {
-        id: 6,
-        fullname: "Enrique",
-        checkedIn: true,
-        checkInDate: 1620648000000,
-        children: [
-          { name: "Kathleen", age: 20 },
-          { name: "Joe", age: 18 },
-        ],
-      },
-    ];
+  constructor(private http: Http) {}
+
+  /**
+   * this services get all passengers
+   * @returns Passenger[]
+   */
+  getPassengers(): Observable<Passenger[]> {
+    return this.http
+      .get(PASSENGER_API)
+      .map((response: Response) => response.json());
   }
 }
