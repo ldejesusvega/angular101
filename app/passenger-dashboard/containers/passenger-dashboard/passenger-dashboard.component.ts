@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { PassengerDashboardService } from "../../passenger-dashboard.service";
 import { Passenger } from "../../modules/passenger.interface";
 
 @Component({
@@ -18,71 +19,20 @@ import { Passenger } from "../../modules/passenger.interface";
         (edit)="handleEdit($event)"
         (remove)="handleRemove($event)"
       ></passenger-detail>
-      <!-- 
-        This passenger-detail adds couple events 
-        _edit _and _remove _to handle raised _by EventEmitters  
-     -->
     </div>
   `,
 })
 export class PassengerDashboardComponent implements OnInit {
   passengers: Passenger[];
-  constructor() {}
+
+  /**
+   * service injection with Dependency Injection
+   */
+  constructor(private passengerService: PassengerDashboardService) {}
+
   ngOnInit() {
-    console.log("OnInit");
-    this.passengers = [
-      {
-        id: 1,
-        fullname: "Stephen",
-        checkedIn: true,
-        checkInDate: 1620723600000,
-        children: [
-          { name: "Ted", age: 12 },
-          { name: "Chloe", age: 8 },
-        ],
-      },
-      {
-        id: 2,
-        fullname: "Rose",
-        checkedIn: true,
-        checkInDate: 1620727200000,
-        children: null,
-      },
-      {
-        id: 3,
-        fullname: "James",
-        checkedIn: false,
-        checkInDate: null,
-        children: [{ name: "Jessica", age: 13 }],
-      },
-      {
-        id: 4,
-        fullname: "Thelma",
-        checkedIn: true,
-        checkInDate: 1620734400000,
-        children: [
-          { name: "Tina", age: 5 },
-          { name: "Jack", age: 2 },
-        ],
-      },
-      {
-        id: 5,
-        fullname: "Louis",
-        checkedIn: false,
-        checkInDate: null,
-        children: null,
-      },
-      {
-        id: 6,
-        fullname: "Enrique",
-        checkedIn: true,
-        checkInDate: 1620648000000,
-        children: [
-          { name: "Kathleen", age: 20 },
-          { name: "Joe", age: 18 },
-        ],
-      },
-    ];
+    // this is a syncronous call
+    this.passengers = this.passengerService.getPassengers();
   }
 
   /**
