@@ -6,28 +6,18 @@ import { Passenger } from "../../modules/passenger.interface";
   styleUrls: ["passenger-dashboard.component.scss"],
   template: `
     <div>
+      <h4>using components</h4>
       <passenger-count [items]="passengers"> </passenger-count>
-      <passenger-detail></passenger-detail>
-
-      <ul>
-        <li *ngFor="let passenger of passengers; let i = index">
-          <span class="status" [class.checked-in]="passenger.checkedIn"></span>
-          <!-- {{ i }} -- {{ passenger.id }}, {{ passenger.fullname }} -->
-          <!--<p>{{ passenger | json }}</p> -->
-
-          <div class="date">
-            Checked In Date :
-            {{
-              passenger.checkInDate
-                ? (passenger.checkInDate | date: "yMMMMd" | uppercase)
-                : "Not Checked Id"
-            }}
-          </div>
-          <div class="children">
-            Children:{{ passenger.children?.lenght || 0 }}
-          </div>
-        </li>
-      </ul>
+      <passenger-detail
+        *ngFor="let passenger of passengers"
+        [detail]="passenger"
+        (edit)="handleEdit($event)"
+        (remove)="handleRemove($event)"
+      ></passenger-detail>
+      <!-- 
+        This passenger-detail adds couple events 
+        _edit _and _remove _to handle raised _by EventEmitters  
+     -->
     </div>
   `,
 })
@@ -89,5 +79,23 @@ export class PassengerDashboardComponent implements OnInit {
         ],
       },
     ];
+  }
+
+  /**
+   * This function catch remove event
+   * @param event parameter event has information on what raised this event
+   */
+  handleRemove(event) {
+    console.log(" remove event in parent component");
+    console.log(event);
+  }
+
+  /**
+   * handleEdit catches edit event
+   * @param event event contains data from raised event
+   */
+  handleEdit(event) {
+    console.log(" edit event in parent component");
+    console.log(event);
   }
 }
