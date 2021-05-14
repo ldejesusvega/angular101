@@ -8,6 +8,10 @@ import { Passenger } from "../../modules/passenger.interface";
     <div>
       <h4>using components</h4>
       <passenger-count [items]="passengers"> </passenger-count>
+      <div *ngFor="let passenger of passengers">
+        {{ passenger.fullname }}
+      </div>
+      <br />
       <passenger-detail
         *ngFor="let passenger of passengers"
         [detail]="passenger"
@@ -86,8 +90,6 @@ export class PassengerDashboardComponent implements OnInit {
    * @param event parameter event has information on what raised this event
    */
   handleRemove(event) {
-    console.log(" remove event in parent component");
-    console.log(event);
     /***
      * Implements logic to remove one passenger from list
      * usign filter to remove passenger
@@ -102,8 +104,6 @@ export class PassengerDashboardComponent implements OnInit {
    * @param event event contains data from raised event
    */
   handleEdit(event: Passenger) {
-    console.log(" edit event in parent component");
-    console.log(event);
     /**
      * Implements logic to edit one passenger from pasengers list
      * using Object.assing, this function takes passenger and merges
@@ -115,6 +115,5 @@ export class PassengerDashboardComponent implements OnInit {
       }
       return passenger;
     });
-    console.log(this.passengers);
   }
 }
