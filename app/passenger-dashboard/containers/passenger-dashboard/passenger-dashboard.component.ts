@@ -45,12 +45,15 @@ export class PassengerDashboardComponent implements OnInit {
    */
   handleRemove(event) {
     /***
-     * Implements logic to remove one passenger from list
-     * usign filter to remove passenger
+     * Imlpements delete function to remove passenger element from passengers list
      */
-    this.passengers = this.passengers.filter((passenger: Passenger) => {
-      return passenger.id !== event.id;
-    });
+    this.passengerService
+      .removePassenger(event)
+      .subscribe((data: Passenger) => {
+        this.passengers = this.passengers.filter((passenger: Passenger) => {
+          return passenger.id !== event.id;
+        });
+      });
   }
 
   /**
@@ -59,15 +62,17 @@ export class PassengerDashboardComponent implements OnInit {
    */
   handleEdit(event: Passenger) {
     /**
-     * Implements logic to edit one passenger from pasengers list
-     * using Object.assing, this function takes passenger and merges
-     * with the event:passenger object, taking the most recent values
+     * Implements Passenger Service to Edit passenger from list
      */
-    this.passengers = this.passengers.map((passenger: Passenger) => {
-      if (passenger.id === event.id) {
-        passenger = Object.assign({}, passenger, event);
-      }
-      return passenger;
-    });
+    this.passengerService
+      .updatePassenger(event)
+      .subscribe((data: Passenger) => {
+        this.passengers = this.passengers.map((passenger: Passenger) => {
+          if (passenger.id === event.id) {
+            passenger = Object.assign({}, passenger, event);
+          }
+          return passenger;
+        });
+      });
   }
 }
