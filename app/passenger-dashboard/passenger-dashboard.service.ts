@@ -20,4 +20,27 @@ export class PassengerDashboardService {
       .get(PASSENGER_API)
       .map((response: Response) => response.json());
   }
+
+  /**
+   * This method implements update operation using PUT http verb
+   * @param passenger Type of Passenger
+   * @returns json object
+   */
+  updatePassenger(passenger: Passenger): Observable<Passenger> {
+    return this.http
+      .put(`${PASSENGER_API}/${passenger.id}`, passenger)
+      .map((response: Response) => response.json());
+  }
+
+  /**
+   * This method implements delete operation on passengers list
+   * using delete http verb
+   * @param passenger Type of passenger
+   * @returns Json Object
+   */
+  removePassenger(passenger: Passenger): Observable<Passenger> {
+    return this.http
+      .delete(`${PASSENGER_API}/${passenger.id}`)
+      .map((response: Response) => response.json());
+  }
 }
