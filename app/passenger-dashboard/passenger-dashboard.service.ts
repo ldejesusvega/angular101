@@ -1,7 +1,13 @@
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
 import { Passenger } from "./modules/passenger.interface";
 
+// Add this Injectable, so we can inject http services in the contructor
+@Injectable()
 export class PassengerDashboardService {
-  constructor() {}
+  constructor(private http: Http) {
+    console.log(http);
+  }
   getPassengers(): Passenger[] {
     return [
       {
