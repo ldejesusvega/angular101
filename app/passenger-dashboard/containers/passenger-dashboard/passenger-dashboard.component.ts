@@ -33,7 +33,7 @@ export class PassengerDashboardComponent implements OnInit {
   ngOnInit() {
     // this is a syncronous call
     // this.passengers = this.passengerService.getPassengers();
-    this.passengerService.getPassengers().subscribe((data: Passenger[]) => {
+    this.passengerService.getPassengers().then((data: Passenger[]) => {
       console.log("Data : ", data);
       this.passengers = data;
     });
@@ -47,13 +47,11 @@ export class PassengerDashboardComponent implements OnInit {
     /***
      * Imlpements delete function to remove passenger element from passengers list
      */
-    this.passengerService
-      .removePassenger(event)
-      .subscribe((data: Passenger) => {
-        this.passengers = this.passengers.filter((passenger: Passenger) => {
-          return passenger.id !== event.id;
-        });
+    this.passengerService.removePassenger(event).then((data: Passenger) => {
+      this.passengers = this.passengers.filter((passenger: Passenger) => {
+        return passenger.id !== event.id;
       });
+    });
   }
 
   /**
@@ -64,15 +62,13 @@ export class PassengerDashboardComponent implements OnInit {
     /**
      * Implements Passenger Service to Edit passenger from list
      */
-    this.passengerService
-      .updatePassenger(event)
-      .subscribe((data: Passenger) => {
-        this.passengers = this.passengers.map((passenger: Passenger) => {
-          if (passenger.id === event.id) {
-            passenger = Object.assign({}, passenger, event);
-          }
-          return passenger;
-        });
+    this.passengerService.updatePassenger(event).then((data: Passenger) => {
+      this.passengers = this.passengers.map((passenger: Passenger) => {
+        if (passenger.id === event.id) {
+          passenger = Object.assign({}, passenger, event);
+        }
+        return passenger;
       });
+    });
   }
 }
