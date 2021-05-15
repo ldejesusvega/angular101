@@ -27,8 +27,14 @@ export class PassengerDashboardService {
    * @returns json object
    */
   updatePassenger(passenger: Passenger): Observable<Passenger> {
+    let headers = new Headers({
+      "Content-Type": "application/json",
+    });
+    let options = new RequestOptions({
+      headers: headers,
+    });
     return this.http
-      .put(`${PASSENGER_API}/${passenger.id}`, passenger)
+      .put(`${PASSENGER_API}/${passenger.id}`, passenger, options)
       .map((response: Response) => response.json());
   }
 
