@@ -9,7 +9,10 @@ import { PassengerDashboardService } from "../../passenger-dashboard.service";
     <!-- <div>
       {{ passenger | json }}
     </div> -->
-    <passenger-form [detail]="passenger"></passenger-form>
+    <passenger-form
+      [detail]="passenger"
+      (update)="onUpdatePassenger($event)"
+    ></passenger-form>
   `,
 })
 export class PassengerViewerComponent implements OnInit {
@@ -20,5 +23,13 @@ export class PassengerViewerComponent implements OnInit {
       .getPassenger(1)
       .subscribe((data: Passenger) => (this.passenger = data));
     console.log("P", this.passenger);
+  }
+
+  onUpdatePassenger(event: Passenger) {
+    this.passengerService
+      .updatePassenger(event)
+      .subscribe((data: Passenger) => {
+        this.passenger = Object.assign({}, this.passenger, event);
+      });
   }
 }
