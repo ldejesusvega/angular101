@@ -6,9 +6,10 @@ import { PassengerDashboardService } from "../../passenger-dashboard.service";
   selector: "passenger-viewer",
   styleUrls: ["passenger-viewer.component.scss"],
   template: `
-    <div>
+    <!-- <div>
       {{ passenger | json }}
-    </div>
+    </div> -->
+    <passenger-form [detail]="passenger"></passenger-form>
   `,
 })
 export class PassengerViewerComponent implements OnInit {
@@ -18,5 +19,6 @@ export class PassengerViewerComponent implements OnInit {
     this.passengerService
       .getPassenger(1)
       .subscribe((data: Passenger) => (this.passenger = data));
+    console.log("P", this.passenger);
   }
 }
