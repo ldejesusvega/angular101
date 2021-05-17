@@ -39,7 +39,7 @@ import { Passenger } from "../../modules/passenger.interface";
             : "Not Checked Id"
         }}
       </div>
-      <div class="children">Children: {{ detail.children?.length || 0 }}</div>
+      <!-- <div class="children">Children: {{ detail.children?.length || 0 }}</div> -->
       <!-- se agrega el evento para editar -->
       <button (click)="toggleEdit()">
         {{ editing ? "Done" : "Edit" }}
@@ -80,10 +80,10 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
    * onNameChange capture changes on input
    */
   onNameChange(value: string) {
-    console.log("fullname before : ", this.detail.fullname);
-    console.log("Value:", value);
+    // console.log("fullname before : ", this.detail.fullname);
+    // console.log("Value:", value);
     this.detail.fullname = value;
-    console.log("fullname after : ", this.detail.fullname);
+    // console.log("fullname after : ", this.detail.fullname);
   }
 
   /**
@@ -96,7 +96,7 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
       this.edit.emit(this.detail);
     }
     this.editing = !this.editing;
-    console.log("Editing Value", this.editing);
+    // console.log("Editing Value", this.editing);
   }
   /**
    * this onRTemove Notify parent component when this
