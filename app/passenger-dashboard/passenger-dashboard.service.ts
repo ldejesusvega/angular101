@@ -11,6 +11,12 @@ const PASSENGER_API: string = "/api/passengers";
 // Add this Injectable, so we can inject http services in the contructor
 @Injectable()
 export class PassengerDashboardService {
+  getPassenger(id: number): Observable<Passenger> {
+    return this.http
+      .get(`${PASSENGER_API}/${id}`)
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
   constructor(private http: Http) {}
 
   /**
