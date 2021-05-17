@@ -10,11 +10,32 @@ import { Baggage } from "../../modules/baggage.interface";
       form!!
       {{ detail | json }}
       <div>
-        Passenger F0ullname :
-        <input type="text" name="fullname" [ngModel]="detail?.fullname" />
+        Passenger Fullname :
+        <input
+          type="text"
+          name="fullname"
+          [ngModel]="detail?.fullname"
+          #fullname="ngModel"
+          required
+        />
+        <div *ngIf="fullname.errors?.required && fullname.dirty" class="error">
+          Passenger Name_ is_ required
+        </div>
+        <!-- {{ fullname.errors | json }} -->
       </div>
       <div>
-        Passenger ID : <input type="number" name="id" [ngModel]="detail?.id" />
+        Passenger ID :
+        <input
+          type="number"
+          name="id"
+          [ngModel]="detail?.id"
+          #id="ngModel"
+          required
+        />
+        <!-- {{ id.errors | json }} -->
+        <div *ngIf="id.errors?.required && fullname.dirty" class="error">
+          Passenger ID_ is_ required
+        </div>
       </div>
       <div>
         <label>
@@ -28,7 +49,7 @@ import { Baggage } from "../../modules/baggage.interface";
       </div>
 
       <div *ngIf="form.value.checkedIn">
-        Check_ in_ date_:
+        Check in date:
         <input
           type="number"
           name="checkInDate"
@@ -44,15 +65,6 @@ import { Baggage } from "../../modules/baggage.interface";
             [value]="item.key"
             [selected]="item.key === detail?.baggage"
           >
-            {{ item.value }}
-          </option>
-        </select>
-      </div>
-
-      <div>
-        Luggage
-        <select name="baggage" [ngModel]="detail?.baggage">
-          <option *ngFor="let item of baggage" [ngValue]="item.key">
             {{ item.value }}
           </option>
         </select>
