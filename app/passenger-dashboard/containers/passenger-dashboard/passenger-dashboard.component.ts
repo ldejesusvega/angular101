@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { PassengerDashboardService } from "../../passenger-dashboard.service";
 import { Passenger } from "../../modules/passenger.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "passenger-dashboard",
@@ -18,6 +19,7 @@ import { Passenger } from "../../modules/passenger.interface";
         [detail]="passenger"
         (edit)="handleEdit($event)"
         (remove)="handleRemove($event)"
+        (view)="handleView($event)"
       ></passenger-detail>
     </div>
   `,
@@ -28,15 +30,12 @@ export class PassengerDashboardComponent implements OnInit {
   /**
    * service injection with Dependency Injection
    */
-  constructor(private passengerService: PassengerDashboardService) {}
+  constructor(
+    private router: Router,
+    private passengerService: PassengerDashboardService
+  ) {}
 
   ngOnInit() {
-    // this is a syncronous call
-    // this.passengers = this.passengerService.getPassengers();
-    // this.passengerService.getPassengers().subscribe((data: Passenger[]) => {
-    //   this.passengers = data;
-    // });
-
     this.passengerService
       .getPassengers()
       .subscribe((data: Passenger[]) => (this.passengers = data));
@@ -77,5 +76,9 @@ export class PassengerDashboardComponent implements OnInit {
           return passenger;
         });
       });
+  }
+
+  handleView(event: Passenger) {
+    this.router.navigate(["/passengers", event.id]);
   }
 }
