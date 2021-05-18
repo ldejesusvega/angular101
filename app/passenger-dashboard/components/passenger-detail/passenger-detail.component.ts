@@ -39,13 +39,12 @@ import { Passenger } from "../../modules/passenger.interface";
             : "Not Checked Id"
         }}
       </div>
-      <!-- <div class="children">Children: {{ detail.children?.length || 0 }}</div> -->
-      <!-- se agrega el evento para editar -->
       <button (click)="toggleEdit()">
         {{ editing ? "Done" : "Edit" }}
       </button>
       <!-- se agrega el evento para remover -->
       <button (click)="onRemove()">Remove</button>
+      <button (click)="goToPassenger()">View</button>
     </div>
   `,
 })
@@ -59,14 +58,16 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
    * remove or edit that will notify the upper component
    */
   @Output()
-  remove: EventEmitter<any> = new EventEmitter();
+  remove: EventEmitter<Passenger> = new EventEmitter<Passenger>();
 
   @Output()
-  edit: EventEmitter<any> = new EventEmitter();
+  edit: EventEmitter<Passenger> = new EventEmitter<Passenger>();
+
+  @Output()
+  view: EventEmitter<Passenger> = new EventEmitter<Passenger>();
 
   constructor() {}
   ngOnChanges(changes) {
-    //console.log("onChanges");
     if (changes.detail) {
       this.detail = Object.assign({}, changes.detail.currentValue);
     }
@@ -80,10 +81,7 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
    * onNameChange capture changes on input
    */
   onNameChange(value: string) {
-    // console.log("fullname before : ", this.detail.fullname);
-    // console.log("Value:", value);
     this.detail.fullname = value;
-    // console.log("fullname after : ", this.detail.fullname);
   }
 
   /**
@@ -96,7 +94,6 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
       this.edit.emit(this.detail);
     }
     this.editing = !this.editing;
-    // console.log("Editing Value", this.editing);
   }
   /**
    * this onRTemove Notify parent component when this
@@ -104,5 +101,9 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
    */
   onRemove() {
     this.remove.emit(this.detail);
+  }
+
+  goToPassenger() {
+    this.view.emit(this.detail);
   }
 }
