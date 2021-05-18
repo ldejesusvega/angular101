@@ -29,15 +29,22 @@ export class PassengerViewerComponent implements OnInit {
     //   console.log(data);
     // });
 
+    // this.route.params
+    //   .switchMap((data: Passenger) =>
+    //     this.passengerService.getPassenger(data.id)
+    //   )
+    //   .subscribe((data) => {
+    //     this.passenger = data;
+    //     console.log("data", data); // This line executes after data is colected and after the outside console.log
+    //   });
+    // console.log("P", this.passenger); // This line executes before subscribe is completed
+
+    // Final version
     this.route.params
       .switchMap((data: Passenger) =>
         this.passengerService.getPassenger(data.id)
       )
-      .subscribe((data) => {
-        this.passenger = data;
-        console.log("data", data); // This line executes after data is colected and after the outside console.log
-      });
-    console.log("P", this.passenger); // This line executes before subscribe is completed
+      .subscribe((data) => (this.passenger = data));
   }
 
   onUpdatePassenger(event: Passenger) {
