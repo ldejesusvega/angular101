@@ -8,9 +8,6 @@ import { PassengerDashboardService } from "../../passenger-dashboard.service";
   selector: "passenger-viewer",
   styleUrls: ["passenger-viewer.component.scss"],
   template: `
-    <!-- <div>
-      {{ passenger | json }}
-    </div> -->
     <passenger-form
       [detail]="passenger"
       (update)="onUpdatePassenger($event)"
@@ -25,21 +22,6 @@ export class PassengerViewerComponent implements OnInit {
     private passengerService: PassengerDashboardService
   ) {}
   ngOnInit() {
-    // this.route.params.subscribe((data: Params) => {
-    //   console.log(data);
-    // });
-
-    // this.route.params
-    //   .switchMap((data: Passenger) =>
-    //     this.passengerService.getPassenger(data.id)
-    //   )
-    //   .subscribe((data) => {
-    //     this.passenger = data;
-    //     console.log("data", data); // This line executes after data is colected and after the outside console.log
-    //   });
-    // console.log("P", this.passenger); // This line executes before subscribe is completed
-
-    // Final version
     this.route.params
       .switchMap((data: Passenger) =>
         this.passengerService.getPassenger(data.id)
